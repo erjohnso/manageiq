@@ -61,6 +61,8 @@ gem "ancestry",                       "~>2.1.0",      :require => false
 gem "aws-sdk",                        "~>1.56.0",     :require => false
 gem 'dalli',                          "~>2.7.4",      :require => false
 gem "elif",                           "=0.1.0",       :require => false
+#gem "googleauth",                     "~>0.4.1",      :require => false
+gem "google-api-client",              ">=0.8.0",      :require => false
 gem "hamlit",                         "~>1.7.2",      :require => false
 gem 'hamlit-rails',                   "~>0.1.0"
 gem "inifile",                        "~>3.0",        :require => false

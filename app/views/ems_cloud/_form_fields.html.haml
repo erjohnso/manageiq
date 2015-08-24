@@ -6,6 +6,14 @@
                    options_for_select([["<#{_('Choose')}>", nil]] + Array(@edit[:amazon_regions].invert).sort_by { |desc, _name| desc },
                                       @edit[:new][:provider_region]),
                    "data-miq_observe" => {:url => url}.to_json)
+- elsif @edit[:new][:emstype] == "gce"
+  %tr
+    %td.key= _('Region')
+    %td.wide
+      = select_tag("provider_region",
+                   options_for_select([["<#{_('Choose')}>", nil]] + Array(@edit[:google_regions].invert).sort_by { |desc, _name| desc },
+                                      @edit[:new][:provider_region]),
+                   "data-miq_observe" => {:url => url}.to_json)
 - elsif @edit[:new][:emstype].present?
   %tr
     %td.key= _('Hostname (or IPv4 or IPv6 address)')

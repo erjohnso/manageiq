@@ -1400,6 +1400,33 @@ event_handling:
     - vm_poweroff
   - refresh:
     - ems
+  GCP_GCE_Instance_CREATE:
+  - refresh:
+    - ems
+  GCP_GCE_Instance_UPDATE:
+  - refresh:
+    - ems
+  GCP_GCE_Instance_DELETE:
+  - refresh:
+    - ems
+  GCP_GCE_Instance_running:
+  - policy:
+    - src_vm
+    - vm_start
+  - refresh:
+    - ems
+  GCP_GCE_Instance_stopped:
+  - policy:
+    - src_vm
+    - vm_poweroff
+  - refresh:
+    - ems
+  GCP_GCE_Instance_shutting-down:
+  - policy:
+    - src_vm
+    - vm_poweroff
+  - refresh:
+    - ems
   NODE_REBOOT:
   - refresh:
     - ems

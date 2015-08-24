@@ -18,7 +18,7 @@
       %td.wide
         = select_tag('authentication_mode',
           options_for_select([[_("Database"), "database"], [_("LDAP"), "ldap"], [_("LDAPS"), "ldaps"],
-          [_("Amazon"), "amazon"], [_("External (httpd)"), "httpd"]],
+          [_("Amazon"), "amazon"], [_("Google Cloud Platform"), "google"], [_("External (httpd)"), "httpd"]],
           @edit[:new][:authentication][:mode]),
           "data-miq_observe" => {:url => url}.to_json)
   %hr/
@@ -105,6 +105,31 @@
           = password_field_tag("authentication_amazon_secret", '',
             :maxlength         => 50,
             :placeholder       => placeholder_if_present(@edit[:new][:authentication][:amazon_secret]),
+            "data-miq_observe" => {:interval => '.5', :url => url}.to_json)
+    %hr/
+  = hidden_div_if(@edit[:new][:authentication][:mode] != "google", :id => "google_div") do
+    %h3= _("Google Cloud Platform Account Settings")
+    %table.style1
+      %tr
+        %td.key= _("Project ID")
+        %td.wide
+          = text_field_tag("google_project_id",
+            @edit[:new][:authentication][:google_project_id],
+            :maxlength => 50,
+            "data-miq_observe" => {:interval => '.5', :url => url}.to_json)
+      %tr
+        %td.key= _("Location of Service Account Private Key File")
+        %td.wide
+          = text_field_tag("google_key_location",
+            @edit[:new][:authentication][:google_key_location],
+            :maxlength => 50,
+            "data-miq_observe" => {:interval => '.5', :url => url}.to_json)
+      %tr
+        %td.key= _("Service Account Email Address")
+        %td.wide
+          = text_field_tag("google_client_email",
+            @edit[:new][:authentication][:google_client_email],
+            :maxlength => 50,
             "data-miq_observe" => {:interval => '.5', :url => url}.to_json)
     %hr/
   = hidden_div_if(!%w(ldap ldaps).include?(@edit[:new][:authentication][:mode]), :id => "ldap_role_div") do

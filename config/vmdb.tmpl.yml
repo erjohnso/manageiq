@@ -35,6 +35,9 @@ authentication:
   user_type: userprincipalname
   amazon_key:
   amazon_secret:
+  google_project_id:
+  google_client_address:
+  google_key_location:
 coresident_miqproxy:
   concurrent_per_ems: 1
   concurrent_per_host: 1
@@ -75,6 +78,10 @@ ems_refresh:
   foreman_provisioning:
     :refresh_interval: 1.hour
   full_refresh_threshold: 100
+  gce:
+    get_private_images: true
+    get_public_images: true
+    ignore_terminated_instances: true
   kubernetes:
     :refresh_interval: 15.minutes
   openshift:
@@ -116,6 +123,8 @@ log:
   level_rails: info
   level_aws: info
   level_aws_in_evm: error
+  level_gcp: info
+  level_gcp_in_evm: error
   level_kube: info
   level_kube_in_evm: error
   level_api: info
@@ -346,6 +355,8 @@ workers:
           :poll_method: :escalate
         :ems_metrics_collector_worker_amazon:
           :poll_method: :escalate
+        :ems_metrics_collector_worker_google:
+          :poll_method: :escalate
         :ems_metrics_collector_worker_redhat:
           :poll_method: :escalate
         :ems_metrics_collector_worker_vmware:
@@ -370,6 +381,7 @@ workers:
         :ems_refresh_worker_amazon: {}
         :ems_refresh_worker_foreman_configuration: {}
         :ems_refresh_worker_foreman_provisioning: {}
+        :ems_refresh_worker_google: {}
         :ems_refresh_worker_kubernetes: {}
         :ems_refresh_worker_openshift: {}
         :ems_refresh_worker_microsoft: {}

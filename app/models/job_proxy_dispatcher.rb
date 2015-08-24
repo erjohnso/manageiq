@@ -282,7 +282,7 @@ class JobProxyDispatcher
     end
 
     if @vm.storage.nil?
-      unless ['Amazon', 'OpenStack'].include?(@vm.vendor)
+      unless ['Amazon', 'Google', 'OpenStack'].include?(@vm.vendor)
         msg = "Vm [#{@vm.path}] is not located on a storage, aborting job [#{job.guid}]."
         self.queue_signal(job, {:args => [:abort, msg, "error"]})
         return []

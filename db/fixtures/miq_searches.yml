@@ -41,6 +41,17 @@
     search_key: _hidden_
     db: Vm
 - attributes: 
+    name: default_Platform / Google
+    description: Platform / Google
+    filter: !ruby/object:MiqExpression 
+      exp: 
+        "=":
+          field: Vm-type
+          value: ManageIQ::Providers::Google::CloudManager::Vm
+    search_type: default
+    search_key: _hidden_
+    db: Vm
+- attributes: 
     name: default_Platform / VMware
     description: Platform / VMware
     filter: !ruby/object:MiqExpression 
@@ -162,6 +173,17 @@
         "=": 
           field: Host-vmm_vendor
           value: EC2
+    search_type: default
+    search_key: _hidden_
+    db: Host
+- attributes: 
+    name: default_Platform / GCE
+    description: Platform / GCE
+    filter: !ruby/object:MiqExpression 
+      exp: 
+        "=": 
+          field: Host-vmm_vendor
+          value: GCE
     search_type: default
     search_key: _hidden_
     db: Host
@@ -435,6 +457,17 @@
         "=":
           field: MiqTemplate-type
           value: ManageIQ::Providers::Amazon::CloudManager::Template
+    search_type: default
+    search_key: _hidden_
+    db: MiqTemplate
+- attributes:
+    name: default_Platform / Google
+    description: Platform / Google
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: MiqTemplate-type
+          value: ManageIQ::Providers::Google::CloudManager::Template
     search_type: default
     search_key: _hidden_
     db: MiqTemplate
@@ -812,6 +845,17 @@
     search_key: _hidden_
     db: TemplateCloud
 - attributes:
+    name: default_Platform / Google
+    description: Platform / Google
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: TemplateCloud-type
+          value: ManageIQ::Providers::Google::CloudManager::Template
+    search_type: default
+    search_key: _hidden_
+    db: TemplateCloud
+- attributes:
     name: default_Platform / Openstack
     description: Platform / Openstack
     filter: !ruby/object:MiqExpression
@@ -950,6 +994,17 @@
         "=":
           field: VmCloud-type
           value: ManageIQ::Providers::Amazon::CloudManager::Vm
+    search_type: default
+    search_key: _hidden_
+    db: VmCloud
+- attributes:
+    name: default_Platform / Google
+    description: Platform / Google
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: VmCloud-type
+          value: ManageIQ::Providers::Google::CloudManager::Vm
     search_type: default
     search_key: _hidden_
     db: VmCloud

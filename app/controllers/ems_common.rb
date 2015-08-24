@@ -580,6 +580,12 @@ module EmsCommon
       else
         @edit[:default_verify_status] = (edit_new[:default_password] == edit_new[:default_verify])
       end
+    elsif edit_new[:emstype] == "gce"
+      if edit_new[:default_userid].blank? || edit_new[:provider_region].blank?
+        @edit[:default_verify_status] = false
+      else
+        @edit[:default_verify_status] = (edit_new[:default_password] == edit_new[:default_verify])
+      end
     else
       if edit_new[:default_userid].blank? || edit_new[:hostname].blank? || edit_new[:emstype].blank?
         @edit[:default_verify_status] = false
@@ -703,6 +709,7 @@ module EmsCommon
     @edit[:new][:hostname] = @ems.hostname
     @edit[:new][:emstype] = @ems.emstype
     @edit[:amazon_regions] = get_amazon_regions if @ems.kind_of?(ManageIQ::Providers::Amazon::CloudManager)
+    @edit[:google_regions] = get_google_regions if @ems.kind_of?(ManageIQ::Providers::Google::CloudManager)
     @edit[:new][:port] = @ems.port
     @edit[:new][:provider_id] = @ems.provider_id
     @edit[:protocols] = [['Basic (SSL)', 'ssl'], ['Kerberos', 'kerberos']]
@@ -723,7 +730,7 @@ module EmsCommon
     zones.each do |zone|
       @edit[:server_zones].push([zone.description, zone.name])
     end
-    
+
     @edit[:openstack_infra_providers] = ManageIQ::Providers::Openstack::Provider.order('lower(name)').each_with_object([["---", nil]]) do |openstack_infra_provider, x|
       x.push([openstack_infra_provider.name, openstack_infra_provider.id])
     end
@@ -764,6 +771,14 @@ module EmsCommon
   def get_amazon_regions
     regions = Hash.new
     ManageIQ::Providers::Amazon::Regions.all.each do |region|
+      regions[region[:name]] = region[:description]
+    end
+    return regions
+  end
+
+  def get_google_regions
+    regions = Hash.new
+    ManageIQ::Providers::Google::Regions.all.each do |region|
       regions[region[:name]] = region[:description]
     end
     return regions
@@ -815,6 +830,7 @@ module EmsCommon
     @edit[:new][:host_default_vnc_port_start] = params[:host_default_vnc_port_start] if params[:host_default_vnc_port_start]
     @edit[:new][:host_default_vnc_port_end] = params[:host_default_vnc_port_end] if params[:host_default_vnc_port_end]
     @edit[:amazon_regions] = get_amazon_regions if @edit[:new][:emstype] == "ec2"
+    @edit[:google_regions] = get_google_regions if @edit[:new][:emstype] == "gce"
     @edit[:new][:security_protocol] = params[:security_protocol] if params[:security_protocol]
     @edit[:new][:realm] = nil if params[:security_protocol]
     @edit[:new][:realm] = params[:realm] if params[:realm]

@@ -809,6 +809,7 @@ module ApplicationController::CiProcessing
         render :action => 'discover'
       else
         begin
+          # TODO(erjohnso): need to also add Google here
           if request.parameters[:controller] != "ems_cloud"
             if params[:discover_type_ipmi].to_s == "1"
               options = {:discover_types=>discover_type, :credentials=>{:ipmi=>{:userid=>@userid,:password=>@password}} }
@@ -843,6 +844,7 @@ module ApplicationController::CiProcessing
     else
       controller_table = ui_lookup(:tables => controller)
       if controller == "ems_cloud"
+        # TODO(erjohnso): need to also add Google here
         return "Amazon #{controller_table}"
       else
         return controller_table
