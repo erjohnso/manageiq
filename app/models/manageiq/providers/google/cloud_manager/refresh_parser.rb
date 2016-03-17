@@ -69,8 +69,10 @@ module ManageIQ::Providers
       end
 
       def get_images
+        # TODO(erjohnso): switch from .all to .current and remove the 'unless'
+        # once upstream fog is released containing https://github.com/fog/fog-google/pull/110
         images = @connection.images.all
-        process_collection(images, :vms) { |image| parse_image(image) }
+        process_collection(images, :vms) { |image| parse_image(image) unless image.deprecated }
       end
 
       def get_key_pairs(instances)
